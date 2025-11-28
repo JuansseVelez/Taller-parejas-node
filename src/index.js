@@ -1,11 +1,15 @@
 
 import express from "express";
 import dotenv from "dotenv";
+import tasksRoutes from "./routes/tasks.routes.js";
+import usersRoutes from "./routes/users.routes.js";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use("/tasks", tasksRoutes);
+app.use("/users", usersRoutes);
 
 app.get("/", (req, res) => {
   res.send("API running");
