@@ -5,8 +5,12 @@ import {
   updateTask,
   deleteTask,
 } from "../controllers/tasks.controller.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+// Aplicar el middleware a todas las rutas de tasks
+router.use(authMiddleware);
 
 // GET /tasks
 router.get("/", getTasks);

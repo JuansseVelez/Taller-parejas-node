@@ -3,7 +3,9 @@ import { prisma } from "../prismaClient.js";
 // GET /tasks
 export const getTasks = async (req, res) => {
   try {
+    const { userId } = req.user; // Obtener userId del token decodificado
     const tasks = await prisma.task.findMany();
+    where: { userId: Number(userId) } // Filtrar tareas por userId
     return res.json(tasks);
   } catch (error) {
     console.error("Error recuperando tarea:", error);
@@ -14,13 +16,18 @@ export const getTasks = async (req, res) => {
 // POST /tasks
 export const createTask = async (req, res) => {
   try {
-    const { title, description, state, userId } = req.body;
+    const { userId } = req.user; // Obtener userId del token decodificado   
+    const { title, description, state } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ message: "El título es requerido" });
+    }
 
     const newTask = await prisma.task.create({
       data: {
         title,
         description,
-        state,
+        state: state || "pending",
         userId: Number(userId),
       },
     });
@@ -35,8 +42,23 @@ export const createTask = async (req, res) => {
 // PUT /tasks/:id
 export const updateTask = async (req, res) => {
   try {
+    const { userId } = req.user; // Obtener userId del token decodificado
     const { id } = req.params;
     const { title, description, state } = req.body;
+    
+    // Verificamos que la tarea existe Y pertenece al usuario
+    const existingTask = await prisma.task.findFirst({
+      where: { 
+        id: Number(id),
+        userId: userId 
+      }
+    });
+
+    if (!existingTask) {
+      return res.status(404).json({ 
+        message: "Tarea no encontrada o no tienes permiso para modificarla" 
+      });
+    }
 
     const updatedTask = await prisma.task.update({
       where: { id: Number(id) },
@@ -62,7 +84,22 @@ export const updateTask = async (req, res) => {
 // DELETE /tasks/:id
 export const deleteTask = async (req, res) => {
   try {
+    const { userId } = req.user; // Obtener userId del token decodificado
     const { id } = req.params;
+    
+    // Verificamos que la tarea existe Y pertenece al usuario
+    const existingTask = await prisma.task.findFirst({
+      where: { 
+        id: Number(id),
+        userId: userId 
+      }
+    });
+
+    if (!existingTask) {
+      return res.status(404).json({ 
+        message: "Tarea no encontrada o no tienes permiso para eliminarla" 
+      });
+    }
 
     await prisma.task.delete({
       where: { id: Number(id) },

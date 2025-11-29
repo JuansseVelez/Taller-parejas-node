@@ -51,4 +51,4 @@ En el proyecto se uso JWT para manejar la autenticacion de usuarios. Cuando se i
 -sub: id del usuario (para identificarlo).
 -exp: tiempo expiracion (1 hora). 
 
-Se usa despues en cualquier peticion protegida, que es enviada a los headers. El servidor verifica y así sabemos quien hace la solicitud sinm necesidad de guardar sesiones.
+Se usa despues en cualquier peticion protegida, que es enviada a los headers. El servidor verifica y así sabemos quien hace la solicitud sin necesidad de guardar sesiones.
