@@ -43,3 +43,12 @@ Cuando un usuario inicia sesión el JWT entrega un token, siempre que acceda a u
 
 ## Conclusion
 Los tres conceptos forman actualmente parte de la base de seguridad de APIS moderna y son esenciales para prevenir ataques y mantener un flujo seguro entre cliente-servidor.
+
+
+## Como se implemento JWT en este proyecto
+En el proyecto se uso JWT para manejar la autenticacion de usuarios. Cuando se inicia sesion correctamente, se genera un token firmado con (JWT_SECRET). Dentro del token se incluyo:
+
+-sub: id del usuario (para identificarlo).
+-exp: tiempo expiracion (1 hora). 
+
+Se usa despues en cualquier peticion protegida, que es enviada a los headers. El servidor verifica y así sabemos quien hace la solicitud sinm necesidad de guardar sesiones.
