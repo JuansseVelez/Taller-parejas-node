@@ -3,7 +3,7 @@ import { prisma } from "../prismaClient.js";
 // GET /tasks
 export const getTasks = async (req, res) => {
   try {
-    const { userId } = req.user; // Obtener userId del token decodificado
+    const userId = req.user.id; // Obtener userId del token decodificado
     const tasks = await prisma.task.findMany();
     where: { userId: Number(userId) } // Filtrar tareas por userId
     return res.json(tasks);
@@ -16,7 +16,7 @@ export const getTasks = async (req, res) => {
 // POST /tasks
 export const createTask = async (req, res) => {
   try {
-    const { userId } = req.user; // Obtener userId del token decodificado   
+    const userId = req.user.id; // Obtener userId del token decodificado   
     const { title, description, state } = req.body;
 
     if (!title) {
@@ -42,7 +42,7 @@ export const createTask = async (req, res) => {
 // PUT /tasks/:id
 export const updateTask = async (req, res) => {
   try {
-    const { userId } = req.user; // Obtener userId del token decodificado
+    const userId = req.user.id; // Obtener userId del token decodificado
     const { id } = req.params;
     const { title, description, state } = req.body;
     
@@ -84,7 +84,7 @@ export const updateTask = async (req, res) => {
 // DELETE /tasks/:id
 export const deleteTask = async (req, res) => {
   try {
-    const { userId } = req.user; // Obtener userId del token decodificado
+    const userId = req.user.id; // Obtener userId del token decodificado
     const { id } = req.params;
     
     // Verificamos que la tarea existe Y pertenece al usuario

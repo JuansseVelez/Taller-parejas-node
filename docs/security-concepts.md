@@ -52,3 +52,6 @@ En el proyecto se uso JWT para manejar la autenticacion de usuarios. Cuando se i
 -exp: tiempo expiracion (1 hora). 
 
 Se usa despues en cualquier peticion protegida, que es enviada a los headers. El servidor verifica y así sabemos quien hace la solicitud sin necesidad de guardar sesiones.
+
+## Justificacion de por que use exclusivamente passport
+Estuve haciendo una investigacion y la informacion que obtuve fue que usar passport es mucho mas profesional y limpio, que tiene su codigo probado y mantenido por la comunidad, es un estandar mas seguro y tiene muy buena escalabilidad, con lo cual el proyecto puede ser mas flexible y manipulable.

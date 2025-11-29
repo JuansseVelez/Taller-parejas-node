@@ -6,6 +6,7 @@ import usersRoutes from "./routes/users.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import cors from "cors";
 import { authLimiter, tasksLimiter } from "./config/rateLimiter.js";
+import passport from "./config/passport.js";
 
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cors({
   origin: "*",
   credentials: true, 
 }));
+app.use(passport.initialize());
 
 
 app.get("/", (req, res) => {

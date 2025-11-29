@@ -5,12 +5,14 @@ import {
   updateTask,
   deleteTask,
 } from "../controllers/tasks.controller.js";
-import authMiddleware from "../middlewares/auth.middleware.js";
+import passport from 'passport';
 
 const router = Router();
 
-// Aplicar el middleware a todas las rutas de tasks
-router.use(authMiddleware);
+// Proteger TODAS las rutas con Passport JWT
+// passport.authenticate('jwt', { session: false }) verifica el token
+// y adjunta el usuario completo en req.user
+router.use(passport.authenticate('jwt', { session: false }));
 
 // GET /tasks
 router.get("/", getTasks);
