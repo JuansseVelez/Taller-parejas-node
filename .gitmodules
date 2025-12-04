@@ -1,0 +1,6 @@
+[submodule "backend-parejas-node"]
+	path = backend-parejas-node
+	url = https://github.com/JuansseVelez/backend-parejas-node.git
+[submodule "frontend-parejas-node"]
+	path = frontend-parejas-node
+	url = https://github.com/JuansseVelez/frontend-parejas-node.git
